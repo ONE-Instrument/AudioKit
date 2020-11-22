@@ -16,7 +16,7 @@ public class MIDI {
     public var client = MIDIClientRef()
 
     /// MIDI Client Name
-    internal let clientName: CFString = "MIDI Client" as CFString
+    internal var clientName: CFString = "MIDI Client" as CFString
 
     /// Array of MIDI In ports
     public var inputPorts = [MIDIUniqueID: MIDIPortRef]()
@@ -48,7 +48,12 @@ public class MIDI {
     // MARK: - Initialization
 
     /// Initialize the MIDI system
-    public init() {
+    public init(name: String? = nil) {
+        
+        if let name = name {
+            clientName = name as CFString
+        }
+        
         Log("Initializing MIDI", log: OSLog.midi)
 
         #if os(iOS)
